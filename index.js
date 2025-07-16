@@ -1,3 +1,5 @@
+const fixed_size = 720;
+
 let body = document.querySelector("body");
 let container = document.querySelector(".container");
 let button = document.createElement("button");
@@ -8,6 +10,7 @@ body.prepend(button);
 // And create n of those divs..
 function draw_grid(n)
 {
+    let size = fixed_size / n;
     for(i = 0; i < n; i++)
     {
         let  outer_div = document.createElement("div");
@@ -16,6 +19,8 @@ function draw_grid(n)
         {
             let div = document.createElement("div");
             div.setAttribute("class", "inner");
+            div.style.height = `${size}px`;
+            div.style.width = `${size}px`;
             // div.textContent = "Div";
             outer_div.appendChild(div);
         }
