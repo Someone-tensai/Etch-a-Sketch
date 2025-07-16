@@ -1,10 +1,18 @@
 const fixed_size = 720;
-
+let current_size = 16;
+let opacity = 0;
 let body = document.querySelector("body");
 let container = document.querySelector(".container");
+
 let button = document.createElement("button");
+let opacity_button = document.createElement("button");
+
 button.textContent = "Size";
 body.prepend(button);
+
+opacity_button.textContent = "Enable/Disable Opacity";
+opacity_button.classList.add("opac");
+body.prepend(opacity_button)
 
 // Create n divs inside one div
 // And create n of those divs..
@@ -21,7 +29,6 @@ function draw_grid(n)
             div.setAttribute("class", "inner");
             div.style.height = `${size}px`;
             div.style.width = `${size}px`;
-            // div.textContent = "Div";
             outer_div.appendChild(div);
         }
     container.appendChild(outer_div);
@@ -30,22 +37,22 @@ function draw_grid(n)
 }
 
 draw_grid(16);
+
 function activate_sketchpad()
 {
     let clicked = 0;
-    let opacity = 0;
     let divs = document.querySelectorAll(".inner");
-    console.table(divs);
-
     divs.forEach(element => {
         element.addEventListener("mouseenter" , function() {
             element.style.backgroundColor = "blue";
-            opacity = Number(element.style.opacity);
-            if(opacity >= 1) opacity = 0.9
-            console.log(opacity);
-            opacity += 0.1;
-        
-            element.style.opacity = opacity;
+            if(opacity != -1) 
+            {
+                opacity = Number(element.style.opacity);
+                if(opacity >= 1) opacity = 0.9
+                opacity += 0.1;
+                element.style.opacity = opacity;
+            }
+           
         })
     });
 
@@ -73,6 +80,7 @@ function activate_sketchpad()
             clicked = 0;
         })
     });
+
 }
 button.addEventListener("click", function() {
 
@@ -81,8 +89,22 @@ button.addEventListener("click", function() {
     {
         size = prompt("Enter the size(between 1 and 100):")
     }
+    current_size = size;
     container.replaceChildren();
     draw_grid(size);
     divs = document.querySelectorAll(".inner");
-    
+
+});
+
+ opacity_button.addEventListener("click" , function(){
+    if(opacity == -1)
+    {
+        opacity = 0;
+
+    }
+    else {
+        opacity = -1;
+        container.replaceChildren();
+        draw_grid(current_size);
+    }
 });
