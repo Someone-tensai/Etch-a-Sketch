@@ -32,6 +32,7 @@ function draw_grid(n)
 draw_grid(16);
 function activate_sketchpad()
 {
+    let clicked = 0;
     let divs = document.querySelectorAll(".inner");
     console.table(divs);
 
@@ -43,10 +44,27 @@ function activate_sketchpad()
 
     divs.forEach(element => {
         element.addEventListener("mouseleave" , function() {
-            element.style.backgroundColor = "white";
+            if(clicked != 1)
+            {
+                element.style.backgroundColor = "white";
+            }
+       
         })
     });
 
+    divs.forEach(element => {
+        element.addEventListener("mousedown" , function() {
+            clicked = 1;
+            element.style.backgroundColor = "blue";
+        })
+    });
+
+
+    divs.forEach(element => {
+        element.addEventListener("mouseup" , function() {
+            clicked = 0;
+        })
+    });
 }
 button.addEventListener("click", function() {
 
