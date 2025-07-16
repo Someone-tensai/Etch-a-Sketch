@@ -33,12 +33,19 @@ draw_grid(16);
 function activate_sketchpad()
 {
     let clicked = 0;
+    let opacity = 0;
     let divs = document.querySelectorAll(".inner");
     console.table(divs);
 
     divs.forEach(element => {
         element.addEventListener("mouseenter" , function() {
             element.style.backgroundColor = "blue";
+            opacity = Number(element.style.opacity);
+            if(opacity >= 1) opacity = 0.9
+            console.log(opacity);
+            opacity += 0.1;
+        
+            element.style.opacity = opacity;
         })
     });
 
@@ -56,6 +63,7 @@ function activate_sketchpad()
         element.addEventListener("mousedown" , function() {
             clicked = 1;
             element.style.backgroundColor = "blue";
+            
         })
     });
 
